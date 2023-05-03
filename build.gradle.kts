@@ -16,6 +16,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.42.0"
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
     id("net.researchgate.release") version "3.0.0"
+    id("com.jfrog.artifactory") version "4.27.1"
 }
 
 buildscript {
@@ -35,6 +36,10 @@ repositories {
 group = "org.connectbot"
 
 val gitHubUrl = "https://github.com/connectbot/sshlib"
+
+val artifactoryUser = project.property("artifactory_user") as String
+val artifactoryPassword = project.property("artifactory_password") as String
+val artifactoryContextUrl = project.property("artifactory_contextUrl") as String
 
 apply(from = "$rootDir/config/quality.gradle.kts")
 
@@ -175,15 +180,33 @@ publishing {
     }
 }
 
-signing {
-    setRequired({
-        gradle.taskGraph.hasTask("publish")
-    })
-    sign(publishing.publications["mavenJava"])
+    repositories {
+        maven {
+            url = uri("$artifactoryContextUrl/libs-release-local")
+            credentials {
+                username = artifactoryUser
+                password = artifactoryPassword
+            }
+        }
+    }
 }
 
-nexusPublishing {
-    repositories {
-        sonatype()
+artifactory {
+    setContextUrl(artifactoryContextUrl)
+    publish {
+        repository {
+            setRepoKey("libs-release-local")
+            setUsername(artifactoryUser)
+            setPassword(artifactoryPassword)
+        }
+        defaults {
+            publications("mavenJava")
+            setPublishArtifacts(true)
+            setPublishPom(true)
+        }
     }
+}
+
+tasks.register("publishToArtifactory") {
+    dependsOn("publish")
 }
