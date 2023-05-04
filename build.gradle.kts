@@ -178,7 +178,6 @@ publishing {
             }
         }
     }
-}
 
     repositories {
         maven {
@@ -205,8 +204,4 @@ artifactory {
             setPublishPom(true)
         }
     }
-}
-
-tasks.register("publishToArtifactory") {
-    dependsOn("publish")
 }
