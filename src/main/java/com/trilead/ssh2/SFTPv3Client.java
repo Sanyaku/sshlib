@@ -114,6 +114,42 @@ public class SFTPv3Client
 	 * Create a SFTP v3 client.
 	 *
 	 * @param conn The underlying SSH-2 connection to be used.
+	 * @param debug
+	 * @param command command want to execute after creating session, if non-null value given, sftp subsystem won't get triggered
+	 * @throws IOException
+	 *
+	 */
+	public SFTPv3Client(Connection conn, PrintStream debug, String command) throws IOException
+	{
+		if (conn == null)
+			throw new IllegalArgumentException("Cannot accept null argument!");
+
+		this.conn = conn;
+		this.debug = debug;
+
+		if (debug != null)
+			debug.println("Opening session and starting SFTP subsystem.");
+
+		sess = conn.openSession();
+		if (command == null || command.trim().length() == 0) {
+			sess.startSubSystem("sftp");
+		} else {
+			sess.execCommand(command.trim());
+		}
+
+		is = sess.getStdout();
+		os = new BufferedOutputStream(sess.getStdin(), 2048);
+
+		if ((is == null) || (os == null))
+			throw new IOException("There is a problem with the streams of the underlying channel.");
+
+		init();
+	}
+	
+	/**
+	 * Create a SFTP v3 client.
+	 *
+	 * @param conn The underlying SSH-2 connection to be used.
 	 * @throws IOException
 	 */
 	public SFTPv3Client(Connection conn) throws IOException
