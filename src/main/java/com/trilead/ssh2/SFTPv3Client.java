@@ -115,11 +115,11 @@ public class SFTPv3Client
 	 *
 	 * @param conn The underlying SSH-2 connection to be used.
 	 * @param debug
-	 * @param command command want to execute after creating session, if non-null value given, sftp subsystem won't get triggered
+	 * @param sftpServerExecuteCommand custom command to execute sftp server on remote machine
 	 * @throws IOException
 	 *
 	 */
-	public SFTPv3Client(Connection conn, PrintStream debug, String command) throws IOException
+	public SFTPv3Client(Connection conn, PrintStream debug, String sftpServerExecuteCommand) throws IOException
 	{
 		if (conn == null)
 			throw new IllegalArgumentException("Cannot accept null argument!");
@@ -131,10 +131,10 @@ public class SFTPv3Client
 			debug.println("Opening session and starting SFTP subsystem.");
 
 		sess = conn.openSession();
-		if (command == null || command.trim().length() == 0) {
+		if (sftpServerExecuteCommand == null || sftpServerExecuteCommand.trim().length() == 0) {
 			sess.startSubSystem("sftp");
 		} else {
-			sess.execCommand(command.trim());
+			sess.execCommand(sftpServerExecuteCommand.trim());
 		}
 
 		is = sess.getStdout();
@@ -145,7 +145,7 @@ public class SFTPv3Client
 
 		init();
 	}
-	
+
 	/**
 	 * Create a SFTP v3 client.
 	 *
