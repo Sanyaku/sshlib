@@ -1,12 +1,14 @@
-This is forked from https://github.com/connectbot/sshlib
+This repository is forked from https://github.com/connectbot/sshlib
 
-Only changes that we have done here is
+Only changes that we have done in this branch is
 - https://github.com/Sanyaku/sshlib/pull/2
 - https://github.com/Sanyaku/sshlib/pull/3
 - https://github.com/Sanyaku/sshlib/pull/4
+- https://github.com/Sanyaku/sshlib/pull/5
 
 This was required for [SUMO-216219](https://jira.kumoroku.com/jira/browse/SUMO-216219). 
-In the collector, we will now use `2.2.21-modified` version.
+In the collector, we will now use `2.2.21-sumo-exec-command-support` version.
+
 
 # ConnectBot's SSH library
 [![Build Status](https://github.com/connectbot/sshlib/actions/workflows/ci.yml/badge.svg)](https://github.com/connectbot/sshlib/actions/workflows/ci.yml)
