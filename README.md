@@ -1,3 +1,13 @@
+This is forked from https://github.com/connectbot/sshlib
+
+Only changes that we have done here is
+- https://github.com/Sanyaku/sshlib/pull/2
+- https://github.com/Sanyaku/sshlib/pull/3
+- https://github.com/Sanyaku/sshlib/pull/4
+
+This was required for [SUMO-216219](https://jira.kumoroku.com/jira/browse/SUMO-216219). 
+In the collector, we will now use `2.2.21-modified` version.
+
 # ConnectBot's SSH library
 [![Build Status](https://github.com/connectbot/sshlib/actions/workflows/ci.yml/badge.svg)](https://github.com/connectbot/sshlib/actions/workflows/ci.yml)
 [![Download](https://img.shields.io/maven-central/v/org.connectbot/sshlib)](https://search.maven.org/artifact/org.connectbot/sshlib)
