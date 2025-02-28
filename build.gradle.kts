@@ -46,15 +46,15 @@ apply(from = "$rootDir/config/quality.gradle.kts")
 dependencies {
     implementation("com.jcraft:jzlib:1.1.3")
     implementation("org.connectbot:simplesocks:1.0.1")
-    implementation("com.google.crypto.tink:tink:1.11.0")
+    implementation("com.google.crypto.tink:tink:1.16.0")
     implementation("org.connectbot:jbcrypt:1.0.2")
 
     testImplementation("junit:junit:4.13.2")
-    testImplementation("commons-io:commons-io:2.11.0")
+    testImplementation("commons-io:commons-io:2.14.0")
     testImplementation("commons-codec:commons-codec:1.15")
     testImplementation("org.testcontainers:testcontainers:1.17.3")
     testImplementation("org.jetbrains:annotations:23.0.0")
-    testImplementation("ch.qos.logback:logback-classic:1.2.11")
+    testImplementation("ch.qos.logback:logback-classic:1.5.13")
     testImplementation("org.hamcrest:hamcrest:2.2")
     testImplementation("org.mockito:mockito-core:4.7.0")
 }
